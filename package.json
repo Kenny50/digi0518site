@@ -1,0 +1,24 @@
+{
+  "name": "digitime0518site",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.11",
+    "axios": "^1.6.8",
+    "quasar": "^2.16.2",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.7.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "sass": "^1.77.0",
+    "vite": "^5.2.0"
+  }
+}
