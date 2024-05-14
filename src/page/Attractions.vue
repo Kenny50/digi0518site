@@ -1,18 +1,42 @@
 <template>
-    <div class="q-pa-md row items-start q-gutter-md my-flex-container">
-        <q-card v-for="(attraction, index) in attractions" :key="index" class="my-card"
-            @click="redirectToAttraction(attraction.id)">
-            <img :src="attraction.cover">
+    <div>
+        <p></p>
+        <div>
+            <q-input rounded outlined v-model="text" label="來找找高雄好玩的地方吧" @keydown="sendMessage"
+                :disable="isWaitingResponse" />
+        </div>
+        <div>
+            <div class="q-gutter-sm">
+                <q-radio v-model="shape" val="ai-power" label="ai power" />
+                <q-radio v-model="shape" val="keyword" label="keyword" />
+            </div>
+        </div>
+        <div>
+            <q-expansion-item v-model="expanded" icon="perm_identity" label="AI 簡介">
+                <q-card>
+                    <q-card-section>
+                        {{ introText }}
+                    </q-card-section>
+                </q-card>
+            </q-expansion-item>
+        </div>
+        <div class="q-pa-md row items-start q-gutter-md my-flex-container">
+            <q-card v-for="(attraction, index) in attractions" :key="index" class="my-card"
+                @click="openNewTab(attraction.url)">
+                <img :src="attraction.cover">
 
-            <q-card-section>
-                <div class="text-h6">{{ attraction.name }}</div>
-            </q-card-section>
+                <q-card-section>
+                    <div class="text-h6">{{ attraction.name }}</div>
+                </q-card-section>
 
-            <q-card-section class="q-pt-none">
-                {{ attraction.description }}
-            </q-card-section>
-        </q-card>
+                <q-card-section class="q-pt-none">
+                    {{ attraction.description }}
+                </q-card-section>
+            </q-card>
+        </div>
+
     </div>
+
 </template>
 
 <style>
@@ -47,32 +71,66 @@
 
 <script>
 import AttractionApi from "../api/AttractionApi";
-
+function limitDescriptionLength(arr) {
+    return arr.map(a => {
+        const { description, ...rest } = a
+        return {
+            ...rest,
+            description: description.substring(0, 100)
+        }
+    });
+}
 export default {
 
     data() {
         return {
-            attractions: []
+            attractions: [],
+            shape: 'ai-power', // Default shape value
+            text: '',
+            introText: ""
         };
     },
     async created() {
         try {
-            const data = await AttractionApi.getAllItinerary();
-            const sl = data.attractions.map(a => {
-                const { description, ...rest } = a
-                return {
-                    ...rest,
-                    description: description.substring(0, 100)
-                }
-            });
-            this.attractions = sl
+            const data = await AttractionApi.getAllAttractions();
+            this.attractions = limitDescriptionLength(data.attractions)
         } catch (error) {
             console.error('Error while fetching attractions:', error);
         }
     },
     methods: {
-        redirectToAttraction(id) {
-            this.$router.push({ path: `/attraction/${id}` });
+        async startSearch() {
+            try {
+                if (this.shape === 'keyword') {
+                    const result = await AttractionApi.keywordQuery(this.text);
+                    this.attractions = limitDescriptionLength(result);
+                } else if (this.shape === 'ai-power') {
+                    const result = await AttractionApi.aiPowerQuery(this.text);
+                    this.attractions = limitDescriptionLength(result);
+                    await this.getIntro(this.text); // Call getIntro method after setting attractions
+                }
+            } catch (error) {
+                console.error('Error while searching:', error);
+            }
+        },
+        openNewTab(url) {
+            window.open(url, '_blank'); // Open url in new tab
+        },
+        sendMessage(event) {
+            if (event.keyCode === 13) { // If Enter key is pressed
+                this.startSearch();
+            }
+        },
+        async getIntro(query) {
+            this.introText = ""
+            const introReader = await AttractionApi.aiIntroduce(
+                query
+            );
+            while (true) {
+                const { done, value } = await introReader.read();
+                if (done) break;
+                this.introText += new TextDecoder().decode(value);
+            }
         }
     }
 };

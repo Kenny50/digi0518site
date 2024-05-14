@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh Lpr lff" container style="height: 100vh" class="shadow-2 rounded-borders">
         <div class="devsite-sidebar">
-            <q-drawer v-model="drawer" show-if-above :width="200" :breakpoint="500" bordered
+            <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered
                 :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
                 <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
                     <q-list padding>
