@@ -8,7 +8,7 @@
             </q-chat-message>
         </div>
         <div>
-            <q-input rounded outlined v-model="text" label="Rounded outlined" @keydown.enter="sendMessage"
+            <q-input rounded outlined v-model="text" label="問問高雄旅遊小幫手吧" @keydown="sendMessage"
                 :disable="isWaitingResponse" />
         </div>
     </div>
@@ -40,7 +40,9 @@ export default {
                 console.error("Error fetching session:", error);
             }
         },
-        async sendMessage() {
+        async sendMessage(event) {
+            if (event.keyCode != 13) return
+            console.log('key', console.log(event, event.keyCode));
             const query = this.text
             this.chatMessage.push({ text: [query], isSelf: true })
             this.text = ""

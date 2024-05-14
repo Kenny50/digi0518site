@@ -1,17 +1,17 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 import StoryRefactor from '../page/StoryRefactor.vue';
-import HelloWorld from '../page/HelloWorld.vue';
-import Chat from '../page/Chat.vue';
+import Intro from '../page/Intro.vue';
+import Form from '../page/Form.vue';
 import Attractions from "../page/Attractions.vue"
-import Attraction from "../page/Attraction.vue"
 
 const routes = [
-    { path: '/', component: HelloWorld },
+    { path: '/', component: Intro },
     { path: '/story', component: StoryRefactor },
     { path: '/story/:itineraryId', component: StoryRefactor },
     { path: '/attractions', component: Attractions },
-    { path: '/attraction/:id', component: Attraction, props: true },
-    { path: '/chat', component: Chat }
+    { path: '/itineraries', component: Attractions },
+    { path: '/form', component: Form },
+    { path: '/dashboard', component: Form }
 ]
 const router = createRouter({
     history: createMemoryHistory(),
