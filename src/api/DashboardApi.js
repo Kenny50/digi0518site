@@ -1,13 +1,14 @@
 import axiosInstance from "./instance.js";
 
 const DashboardApi = {
-    async getSummary() {//py
-
+    //2024May
+    //lowTraffic
+    //lowItinerary
+    //lowAttraction
+    async getSummary(query) {//py
+        axiosInstance.get(`${import.meta.env.VITE_PY_API_URL}/summary?query=${query}`)
     },
     async getSummaryByItinerary(id) {//py
-
-    },
-    async getSummaryByCertainRate(rate) {//py
 
     },
     async getAllForm() {
