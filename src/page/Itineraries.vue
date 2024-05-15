@@ -1,10 +1,11 @@
 <template>
-    <q-card v-for="(itinerary, index) in itineraries" :key="index" class="my-card" flat bordered
+    <q-card v-for="(itinerary, index) in itineraries" :key="index" class="my-card card-wrapper" flat bordered
         @click="navigateToStory(itinerary.id)">
         <q-card-section horizontal class="card-section" @mouseover="hoverEffect(index, true)"
             @mouseleave="hoverEffect(index, false)" :class="{ 'hovered': isHovered[index] }">
             <q-img class="col-5 rounded-borders" :src="itinerary.cover" />
             <q-card-section>
+                <h6>{{ itinerary.title }}</h6>
                 <p>{{ itinerary.description }}</p>
             </q-card-section>
         </q-card-section>
@@ -52,5 +53,15 @@ export default {
 
 .hovered {
     transform: scale(1.05);
+}
+
+.card-wrapper {
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.card-wrapper:hover {
+    margin: 10px;
+    background-color: #bae4bb;
 }
 </style>
