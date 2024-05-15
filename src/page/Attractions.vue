@@ -14,7 +14,7 @@
         <div>
             <q-expansion-item v-model="expanded" icon="perm_identity" label="AI 簡介">
                 <q-card>
-                    <q-card-section>
+                    <q-card-section style="white-space: pre-line;">
                         {{ introText }}
                     </q-card-section>
                 </q-card>
@@ -87,7 +87,8 @@ export default {
             attractions: [],
             shape: 'ai-power', // Default shape value
             text: '',
-            introText: ""
+            introText: "",
+            expanded: false
         };
     },
     async created() {
@@ -126,6 +127,7 @@ export default {
             const introReader = await AttractionApi.aiIntroduce(
                 query
             );
+            this.expanded = true
             while (true) {
                 const { done, value } = await introReader.read();
                 if (done) break;
