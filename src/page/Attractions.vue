@@ -7,8 +7,8 @@
         </div>
         <div>
             <div class="q-gutter-sm">
-                <q-radio v-model="shape" val="ai-power" label="ai power" />
-                <q-radio v-model="shape" val="keyword" label="keyword" />
+                <q-radio v-model="shape" val="ai-power" label="ai power" color="accent" />
+                <q-radio v-model="shape" val="keyword" label="keyword" color="accent" />
             </div>
         </div>
         <div>

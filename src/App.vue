@@ -1,12 +1,11 @@
 <template>
-    <q-layout view="hHh Lpr lff" container style="height: 100vh" class="shadow-2 rounded-borders">
-        <div class="devsite-sidebar">
-            <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered
-                :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
-                <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
+    <q-layout view="hHh Lpr lff" container style="height: 100vh">
+        <div class=" devsite-sidebar">
+            <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered class="bg-primary">
+                <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
                     <q-list padding>
                         <q-item v-for="item in menuItems" :key="item.route" :clickable="item.active" v-ripple
-                            :to="item.route">
+                            :to="item.route" class="text-accent">
                             <q-item-section avatar>
                                 <q-icon :name="item.icon" />
                             </q-item-section>
@@ -14,8 +13,21 @@
                                 {{ item.label }}
                             </q-item-section>
                         </q-item>
+
+                        <q-item clickable v-ripple class="absolute-bottom text-accent" :to="`/dashboard`">
+                            <q-item-section avatar>
+                                <q-icon name="info" />
+                            </q-item-section>
+
+                            <q-item-section>
+                                Dashboard
+                            </q-item-section>
+                        </q-item>
                     </q-list>
                 </q-scroll-area>
+
+                <h3 class="absolute-top">城市智人</h3>
+
             </q-drawer>
         </div>
 
@@ -39,7 +51,7 @@ export default {
                 { route: "/attractions", label: "Attractions", icon: "map", active: true },
                 { route: "/itineraries", label: "Itineraries", icon: "map", active: true },
                 { route: "/form", label: "Form", icon: "info", active: true },
-                { route: "/dashboard", label: "Dashboard", icon: "info", active: true },
+                // { route: "/dashboard", label: "Dashboard", icon: "info", active: true },
             ]
         };
     }

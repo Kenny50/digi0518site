@@ -1,25 +1,20 @@
 <template>
     <div>
-        <h2>旗山區回饋</h2>
+        <h2 class="padding:5px">旗山區回饋</h2>
     </div>
     <div class="charts-container">
         <AverageRateBarChart />
         <TrafficRateBarChart />
     </div>
     <div class="btns-container">
-        <q-btn outline rounded color="primary" label="全總結" @click="medium = true" />
-        <q-btn outline rounded color="primary" label="交通低分原因總結" @click="medium = true" />
-        <q-btn outline rounded color="primary" label="景點低分原因總結" @click="medium = true" />
-        <q-btn outline rounded color="primary" label="行程低分原因總結" @click="medium = true" />
+        <q-btn outline rounded color="avatar" label="全總結" @click="fetchSummary('all')" />
+        <q-btn outline rounded color="avatar" label="交通低分原因總結" @click="fetchSummary('traffic')" />
 
-        <q-dialog v-model="medium">
+        <q-dialog v-model="isDialogOpen">
             <q-card style="width: 700px; max-width: 80vw;">
-                <q-card-section>
-                    <div class="text-h6">Medium</div>
-                </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                    Click/Tap on the backdrop.
+                    {{ dialogContent }}
                 </q-card-section>
 
                 <q-card-actions align="right" class="bg-white text-teal">
@@ -29,9 +24,7 @@
         </q-dialog>
     </div>
 
-
-
-    <div v-for="(item, index) in formData" :key="index" class="column no-wrap flex-center">
+    <div v-for="(item, index) in formData" :key="index" class="column no-wrap flex">
         <q-expansion-item v-model="item.expanded" icon="perm_identity" :label="item.createdAt" :caption="item.id">
             <div class="charts-container">
                 <h5>交通滿意度</h5>
@@ -60,13 +53,11 @@
 .charts-container {
     display: flex;
     justify-content: space-between;
-    /* Positions items with space between them */
 }
 
 .btns-container {
     display: flex;
-
-    /* Positions items with space between them */
+    padding: 5px;
 }
 </style>
 
@@ -85,7 +76,8 @@ export default {
     },
     setup() {
         const formData = ref([]);
-        const medium = ref(false)
+        const isDialogOpen = ref(false)
+        const dialogContent = ref('');
 
         const fetchData = () => {
             DashboardApi.getAllForm()
@@ -104,13 +96,23 @@ export default {
                 });
         };
 
+        const fetchSummary = async (query) => {
+            const sum = await DashboardApi.getSummary(query)
+            console.log(sum)
+
+            dialogContent.value = sum.zh;
+            isDialogOpen.value = true;
+        };
+
         onMounted(() => {
             fetchData(); // Fetch data when the component is mounted
         });
 
         return {
             formData,
-            medium
+            isDialogOpen,
+            dialogContent,
+            fetchSummary
         };
     }
 }

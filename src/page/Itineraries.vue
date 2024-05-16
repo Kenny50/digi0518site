@@ -62,6 +62,6 @@ export default {
 
 .card-wrapper:hover {
     margin: 10px;
-    background-color: #bae4bb;
+    background-color: #f2ab5a;
 }
 </style>

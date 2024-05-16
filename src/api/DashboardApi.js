@@ -6,7 +6,8 @@ const DashboardApi = {
     //lowItinerary
     //lowAttraction
     async getSummary(query) {//py
-        axiosInstance.get(`${import.meta.env.VITE_PY_API_URL}/summary?query=${query}`)
+        const response = await axiosInstance.get(`/summary?query=${query}`)
+        return response.data
     },
     async getSummaryByItinerary(id) {//py
 
