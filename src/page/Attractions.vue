@@ -3,7 +3,7 @@
         <p></p>
         <div>
             <q-input rounded outlined v-model="text" label="來找找高雄好玩的地方吧" @keydown="sendMessage"
-                :disable="isWaitingResponse" />
+                :disable="isWaitingResponse" color="accent" />
         </div>
         <div>
             <div class="q-gutter-sm">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div>
-            <q-expansion-item v-model="expanded" icon="perm_identity" label="AI 簡介">
+            <q-expansion-item v-model="expanded" :icon="isLoading ? 'refresh' : 'perm_identity'" label="AI 簡介">
                 <q-card>
                     <q-card-section style="white-space: pre-line;">
                         {{ introText }}
@@ -88,7 +88,8 @@ export default {
             shape: 'ai-power', // Default shape value
             text: '',
             introText: "",
-            expanded: false
+            expanded: false,
+            isLoading: false
         };
     },
     async created() {
@@ -106,6 +107,7 @@ export default {
                     const result = await AttractionApi.keywordQuery(this.text);
                     this.attractions = limitDescriptionLength(result);
                 } else if (this.shape === 'ai-power') {
+                    this.isLoading = true
                     const result = await AttractionApi.aiPowerQuery(this.text);
                     this.attractions = limitDescriptionLength(result);
                     await this.getIntro(this.text); // Call getIntro method after setting attractions
@@ -128,11 +130,13 @@ export default {
                 query
             );
             this.expanded = true
+            this.isLoading = true
             while (true) {
                 const { done, value } = await introReader.read();
                 if (done) break;
                 this.introText += new TextDecoder().decode(value);
             }
+            this.isLoading = false;
         }
     }
 };
