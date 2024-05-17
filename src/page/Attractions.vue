@@ -12,9 +12,10 @@
             </div>
         </div>
         <div>
-            <q-expansion-item v-model="expanded" :icon="isLoading ? 'refresh' : 'perm_identity'" label="AI 簡介">
+            <q-expansion-item v-model="expanded" :icon="isLoading ? 'refresh' : 'auto_awesome'" label="AI 簡介">
                 <q-card>
                     <q-card-section style="white-space: pre-line;">
+                        <q-skeleton type="text" v-if="isLoading" />
                         {{ introText }}
                     </q-card-section>
                 </q-card>

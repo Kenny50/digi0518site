@@ -1,5 +1,6 @@
 <template>
-    <div class="q-pa-md  justify-center" style=" background-color: white;">
+    <div class="q-pa-md  justify-center"
+        style=" background-color: white;   outline: #693a04 solid 1px; border-radius:10px;">
 
         <div style="width: 300px; height: 500px;">
             <q-scroll-area style="height: 90%; max-width: 100%;">
@@ -11,7 +12,7 @@
                 </q-chat-message>
             </q-scroll-area>
             <q-input rounded outlined v-model="text" label="問問高雄旅遊小幫手吧" @keydown="sendMessage"
-                :disable="isWaitingResponse" />
+                :disable="isWaitingResponse" color="accent" />
         </div>
     </div>
 </template>
