@@ -34,7 +34,7 @@ export default {
             }
         },
         hoverEffect(index, hover) {
-            this.$set(this.isHovered, index, hover);
+            // this.$set(this.isHovered, index, hover);
         },
         navigateToStory(itineraryId) {
             this.$router.push(`/story/${itineraryId}`);

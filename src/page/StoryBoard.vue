@@ -4,15 +4,14 @@
             <q-timeline-entry v-for="(item, index) in itinerary" :key="index" :title="item.attractionName"
                 :style="{ height: '80vh' }">
                 <div class="timeline-entry-content">
-                    <!-- Image element behind h5 -->
+                    <div class="text-container">
+                        <h6>{{ item.story }}</h6>
+                    </div>
                     <div class="image-container">
-                        <img :src="item.cover" loading="lazy" alt="Image" class="background-image" />
-                        <div class="gradient-mask"></div>
+                        <img :src="item.cover" loading="lazy" alt="Image"
+                            class="object-fit: contain; width: 100%; height:100 %; display: block;" />
                     </div>
-                    <!-- h5 element -->
-                    <div>
-                        <h6 class="overlay-text">{{ item.story }}</h6>
-                    </div>
+
                 </div>
             </q-timeline-entry>
         </q-timeline>
@@ -25,7 +24,6 @@
 <script>
 import { onMounted, ref, watch, nextTick } from "vue";
 import { useRoute } from 'vue-router';
-
 import StoryApi from "../api/StoryApi";
 
 export default {
@@ -84,7 +82,7 @@ export default {
 
             itinerary.value.push({
                 story: "",
-                cover: "https://khh.travel/content/images/Attractions/34277/480x360_attractions-image-8kiig6rgx0uwxz1vwz7jng.jpg",
+                cover: import.meta.env.VITE_API_URL + "/static/digi.png",
                 ...newItinerary,
             });
 
@@ -145,55 +143,24 @@ export default {
 
 <style>
 .timeline-entry-content {
-    position: relative;
     overflow: hidden;
+    display: flex;
     height: 90vh;
 }
 
 .image-container {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    width: 100%;
-    height: 80%;
     overflow: hidden;
-}
-
-.background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.gradient-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(1, 1, 1, 0.7));
-    z-index: -1;
+    flex: 1;
 }
 
 .text-container {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.overlay-text {
-    color: white;
+    color: black;
     /* Adjust text color as needed */
     text-align: left;
     padding: 20px;
     margin: 0;
+    flex: 2;
+    letter-spacing: 2em;
+    line-height: 24px;
 }
 </style>
