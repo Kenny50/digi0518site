@@ -1,13 +1,15 @@
 <template>
-    <div class="q-pa-md row justify-center">
-        <div style="width: 100%; max-width: 800px; min-width: 400px;">
-            <q-chat-message v-for="(message, index) in chatMessage" :key="index" :text="message.text"
-                :sent="message.isSelf" />
-            <q-chat-message v-if="isWaitingResponse">
-                <q-spinner-dots size="2rem" />
-            </q-chat-message>
-        </div>
-        <div>
+    <div class="q-pa-md  justify-center" style=" background-color: white;">
+
+        <div style="width: 300px; height: 500px;">
+            <q-scroll-area style="height: 90%; max-width: 100%;">
+
+                <q-chat-message v-for="(message, index) in chatMessage" :key="index" :text="message.text"
+                    :sent="message.isSelf" />
+                <q-chat-message v-if="isWaitingResponse">
+                    <q-spinner-dots size="2rem" />
+                </q-chat-message>
+            </q-scroll-area>
             <q-input rounded outlined v-model="text" label="問問高雄旅遊小幫手吧" @keydown="sendMessage"
                 :disable="isWaitingResponse" />
         </div>
@@ -53,6 +55,9 @@ export default {
             } finally {
                 this.isWaitingResponse = false
             }
+        },
+        minimizeChat() {
+            this.$emit('minimize');
         }
     }
 }

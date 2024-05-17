@@ -30,22 +30,40 @@
 
             </q-drawer>
         </div>
+        <q-page-container style="padding-left: 0px;">
+            <q-page>
 
-        <div class="devsite-content">
-            <q-page-container>
-                <RouterView />
-            </q-page-container>
-        </div>
+                <div class="devsite-content">
+                    <q-page-container>
+                        <RouterView />
+                    </q-page-container>
+                </div>
+                <q-page-sticky position="bottom-right" :offset="[18, 18]">
+                    <q-btn @click="toggleChat" round color="primary" icon="arrow_forward" class="rotate-45" />
+                </q-page-sticky>
+                <q-page-sticky position="bottom-right" :offset="[18, 72]">
+                    <Chat @minimize="toggleChat" v-show="isChatVisible" />
+                </q-page-sticky>
+            </q-page>
+
+        </q-page-container>
+
     </q-layout>
+
 </template>
 
 <script>
 import { ref } from 'vue';
+import Chat from './components/Chat.vue';
 
 export default {
+    components: {
+        Chat
+    },
     data() {
         return {
             drawer: ref(false),
+            isChatVisible: ref(false),
             menuItems: [
                 { route: "/", label: "Home", icon: "home", active: false },//introduce
                 { route: "/attractions", label: "Attractions", icon: "map", active: true },
@@ -54,10 +72,11 @@ export default {
                 // { route: "/dashboard", label: "Dashboard", icon: "info", active: true },
             ]
         };
+    },
+    methods: {
+        toggleChat() {
+            this.isChatVisible = !this.isChatVisible;
+        }
     }
 };
 </script>
-
-<style scoped>
-/* Your existing styles */
-</style>

@@ -9,7 +9,7 @@
                     </div>
                     <div class="image-container">
                         <img :src="item.cover" loading="lazy" alt="Image"
-                            class="object-fit: contain; width: 100%; height:100 %; display: block;" />
+                            style="object-fit: contain; width: 100%; height:100%; display: block;" />
                     </div>
 
                 </div>
