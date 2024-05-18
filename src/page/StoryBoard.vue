@@ -22,7 +22,7 @@
         <q-btn id="btn" size="xl" color="accent" v-if="state.nextAttraction" outline style="color: goldenrod;"
             label="輸入線索" :disabled="isLoading" @click="checkInLocation"></q-btn>
         <p id="btm"></p>
-        <q-dialog v-model="showDialog">
+        <q-dialog v-model="showDialog" persistent>
             <q-card>
                 <q-card-section>
                     <div class="text-h6">Message</div>
