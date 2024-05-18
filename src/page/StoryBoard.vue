@@ -15,9 +15,22 @@
                 </div>
             </q-timeline-entry>
         </q-timeline>
-        <q-btn id="btn" v-if="state.nextAttraction" outline style="color: goldenrod;" label="Goldenrod"
-            :disabled="isLoading" @click="checkInLocation"></q-btn>
+        <q-btn id="btn" v-if="state.nextAttraction" outline style="color: goldenrod;" label="輸入線索" :disabled="isLoading"
+            @click="checkInLocation"></q-btn>
         <p id="btm"></p>
+        <q-dialog v-model="showDialog">
+            <q-card>
+                <q-card-section>
+                    <div class="text-h6">Message</div>
+                </q-card-section>
+                <q-card-section>
+                    <div>{{ adMessage }}</div>
+                </q-card-section>
+                <q-card-actions align="right">
+                    <q-btn flat label="Close" color="primary" v-close-popup @click="handleDialog" />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </div>
 </template>
 
@@ -31,6 +44,8 @@ export default {
         const itinerary = ref([]);
         const route = useRoute()
         const itineraryId = route.params.itineraryId ?? 177;
+        const showDialog = ref(false);
+        const adMessage = ref("")
 
         const state = ref({
             session: "",
@@ -38,13 +53,17 @@ export default {
             currentAttraction: undefined,
             nextAttraction: undefined,
             attractionName: "",
-            cover: ""
+            cover: "",
         })
         const updateState = (newState) => {
             state.value = {
                 ...state.value,
                 ...newState
             }
+        }
+        const updateDialog = (message, isShowDialog) => {
+            adMessage.value = message
+            showDialog.value = isShowDialog
         }
 
         const getSession = () => state.value.session;
@@ -58,13 +77,17 @@ export default {
                     state.value.step,
                     state.value.nextAttraction
                 );
+
                 updateState({
                     step: location.currentStep,
                     nextAttraction: location.nextAttraction,
                     currentAttraction: location.currentAttraction,
                     attractionName: location.attractionName,
-                    cover: location.cover
+                    cover: location.cover,
                 })
+                console.log(location)
+                updateDialog(location.message, true)
+
             } catch (error) {
                 console.error("Error checking in location:", error);
             } finally {
@@ -109,6 +132,12 @@ export default {
             });
         };
 
+        const handleDialog = () => {
+            console.log("Dialog status before:", showDialog.value);
+            showDialog.value = !showDialog.value;
+            console.log("Dialog status after:", showDialog.value);
+        };
+
         onMounted(startItinerary);
 
         watch(() => state.value.step, async (newStep) => {
@@ -136,6 +165,9 @@ export default {
             itinerary,
             checkInLocation,
             isLoading,
+            handleDialog,
+            showDialog,
+            adMessage
         };
     },
 };
