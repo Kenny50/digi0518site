@@ -25,10 +25,10 @@
         <q-dialog v-model="showDialog" persistent>
             <q-card>
                 <q-card-section>
-                    <div class="text-h6">Message</div>
+                    <div class="text-h6">🎉 恭喜通關！！</div>
                 </q-card-section>
                 <q-card-section>
-                    <div>{{ adMessage }}</div>
+                    <div v-html="adMessage"></div>
                 </q-card-section>
                 <q-card-actions align="right">
                     <q-btn flat label="領取獎勵" size="xl" color="accent" v-close-popup @click="handleDialog" />
