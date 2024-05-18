@@ -3,20 +3,24 @@
         <q-timeline color="secondary">
             <q-timeline-entry v-for="(item, index) in itinerary" :key="index" :title="item.attractionName"
                 :style="{ height: '80vh' }">
-                <div class="timeline-entry-content">
-                    <div class="text-container">
-                        <h6>{{ item.story }}</h6>
-                    </div>
-                    <div class="image-container">
-                        <img :src="item.cover" loading="lazy" alt="Image"
-                            style="object-fit: contain; width: 100%; height:100%; display: block;" />
-                    </div>
+                <q-scroll-area style="height: 80vh;">
 
-                </div>
+                    <div class="timeline-entry-content">
+                        <div class="text-container" style="white-space: pre-line;">
+                            <p>{{ item.story }}</p>
+                        </div>
+                        <div class="image-container">
+                            <img :src="item.cover" loading="lazy" alt="Image"
+                                style="object-fit: contain; width: 100%; height:100%; display: block;" />
+                        </div>
+
+                    </div>
+                </q-scroll-area>
+
             </q-timeline-entry>
         </q-timeline>
-        <q-btn id="btn" v-if="state.nextAttraction" outline style="color: goldenrod;" label="輸入線索" :disabled="isLoading"
-            @click="checkInLocation"></q-btn>
+        <q-btn id="btn" size="xl" color="accent" v-if="state.nextAttraction" outline style="color: goldenrod;"
+            label="輸入線索" :disabled="isLoading" @click="checkInLocation"></q-btn>
         <p id="btm"></p>
         <q-dialog v-model="showDialog">
             <q-card>
@@ -27,7 +31,7 @@
                     <div>{{ adMessage }}</div>
                 </q-card-section>
                 <q-card-actions align="right">
-                    <q-btn flat label="Close" color="primary" v-close-popup @click="handleDialog" />
+                    <q-btn flat label="領取獎勵" size="xl" color="accent" v-close-popup @click="handleDialog" />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -46,6 +50,7 @@ export default {
         const itineraryId = route.params.itineraryId ?? 177;
         const showDialog = ref(false);
         const adMessage = ref("")
+        const locationSlot = ref({})
 
         const state = ref({
             session: "",
@@ -61,9 +66,11 @@ export default {
                 ...newState
             }
         }
-        const updateDialog = (message, isShowDialog) => {
+        const updateDialog = (message, isShowDialog, location) => {
             adMessage.value = message
             showDialog.value = isShowDialog
+
+            locationSlot.value = location
         }
 
         const getSession = () => state.value.session;
@@ -78,15 +85,15 @@ export default {
                     state.value.nextAttraction
                 );
 
-                updateState({
-                    step: location.currentStep,
-                    nextAttraction: location.nextAttraction,
-                    currentAttraction: location.currentAttraction,
-                    attractionName: location.attractionName,
-                    cover: location.cover,
-                })
+                // updateState({
+                //     step: location.currentStep,
+                //     nextAttraction: location.nextAttraction,
+                //     currentAttraction: location.currentAttraction,
+                //     attractionName: location.attractionName,
+                //     cover: location.cover,
+                // })
                 console.log(location)
-                updateDialog(location.message, true)
+                updateDialog(location.message, true, location)
 
             } catch (error) {
                 console.error("Error checking in location:", error);
@@ -134,8 +141,15 @@ export default {
 
         const handleDialog = () => {
             console.log("Dialog status before:", showDialog.value);
-            showDialog.value = !showDialog.value;
+            showDialog.value = false;
             console.log("Dialog status after:", showDialog.value);
+            updateState({
+                step: locationSlot.value.currentStep,
+                nextAttraction: locationSlot.value.nextAttraction,
+                currentAttraction: locationSlot.value.currentAttraction,
+                attractionName: locationSlot.value.attractionName,
+                cover: locationSlot.value.cover,
+            })
         };
 
         onMounted(startItinerary);
@@ -192,7 +206,7 @@ export default {
     padding: 20px;
     margin: 0;
     flex: 2;
-    letter-spacing: 2em;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
 }
 </style>
