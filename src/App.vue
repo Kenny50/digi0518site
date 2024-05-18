@@ -68,6 +68,7 @@ export default {
                 { route: "/", label: "Home", icon: "home", active: false },//introduce
                 { route: "/attractions", label: "Attractions", icon: "map", active: true },
                 { route: "/itineraries", label: "Itineraries", icon: "map", active: true },
+                { route: "/mystery", label: "解謎", icon: "map", active: true },
                 // { route: "/form", label: "Form", icon: "info", active: true },
                 // { route: "/dashboard", label: "Dashboard", icon: "info", active: true },
             ]
