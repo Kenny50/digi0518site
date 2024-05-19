@@ -122,7 +122,8 @@ export default {
             const initStoryReader = await MysteryApi.mysteryStream(
                 state.value.session,
                 itineraryId,
-                curStep
+                curStep,
+                "en"
             );
             while (true) {
                 const { done, value } = await initStoryReader.read();
