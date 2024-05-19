@@ -25,23 +25,25 @@
     </div>
 
     <div v-for="(item, index) in formData" :key="index" class="column no-wrap flex">
-        <q-expansion-item v-model="item.expanded" icon="perm_identity" :label="item.createdAt" :caption="item.id">
+        <q-expansion-item v-model="item.expanded" icon="perm_identity" :label="item.createdAt" :caption="item.id"
+            style="margin:10px;">
             <div class="charts-container">
-                <h5>交通滿意度</h5>
-                <q-rating :modelValue="item.trafficRate" size="2.5em" color="green-5" icon="star_border"
-                    icon-selected="star" />
+                <p>交通滿意度</p>
+                <q-rating :modelValue="item.trafficRate" color="green-5" icon="star_border" icon-selected="star" />
             </div>
             <div class="charts-container">
 
-                <h5>行程滿意度</h5>
-                <q-rating :modelValue="item.itineraryRate" size="2.5em" color="green-5" icon="star_border"
-                    icon-selected="star" />
+                <p>行程滿意度</p>
+                <q-rating :modelValue="item.itineraryRate" color="green-5" icon="star_border" icon-selected="star" />
             </div>
             <div class="charts-container">
-
-                <h5>景點滿意度</h5>
-                <q-rating :modelValue="item.attractionRate" size="2.5em" color="green-5" icon="star_border"
-                    icon-selected="star" />
+                <p>景點滿意度</p>
+                <q-rating :modelValue="item.attractionRate" color="green-5" icon="star_border" icon-selected="star" />
+            </div>
+            <div>
+                <p style="white-space: pre-line;">
+                    {{ item.text }}
+                </p>
             </div>
         </q-expansion-item>
 
@@ -52,7 +54,6 @@
 <style>
 .charts-container {
     display: flex;
-    justify-content: space-between;
 }
 
 .btns-container {
