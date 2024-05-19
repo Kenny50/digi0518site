@@ -14,7 +14,7 @@
                             </q-item-section>
                         </q-item>
 
-                        <!-- <q-item clickable v-ripple class="absolute-bottom text-accent" :to="`/dashboard`">
+                        <q-item clickable v-ripple class="absolute-bottom text-accent" :to="`/dashboard`">
                             <q-item-section avatar>
                                 <q-icon name="info" />
                             </q-item-section>
@@ -22,11 +22,11 @@
                             <q-item-section>
                                 Dashboard
                             </q-item-section>
-                        </q-item> -->
+                        </q-item>
                     </q-list>
                 </q-scroll-area>
 
-                <h3 class="absolute-top">城市智人</h3>
+                <h3 class="absolute-top" style="margin-left: 10px;">城市智人</h3>
 
             </q-drawer>
         </div>
@@ -38,12 +38,12 @@
                         <RouterView />
                     </q-page-container>
                 </div>
-                <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]">
+                <q-page-sticky position="bottom-right" :offset="[18, 18]">
                     <q-btn @click="toggleChat" round color="primary" icon="arrow_forward" class="rotate-45" />
                 </q-page-sticky>
                 <q-page-sticky position="bottom-right" :offset="[18, 72]">
                     <Chat @minimize="toggleChat" v-show="isChatVisible" />
-                </q-page-sticky> -->
+                </q-page-sticky>
             </q-page>
 
         </q-page-container>
