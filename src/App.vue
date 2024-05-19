@@ -6,10 +6,10 @@
                     <q-list padding>
                         <q-item v-for="item in menuItems" :key="item.route" :clickable="item.active" v-ripple
                             :to="item.route" class="text-accent">
-                            <q-item-section avatar>
+                            <q-item-section avatar style="color: white;">
                                 <q-icon :name="item.icon" />
                             </q-item-section>
-                            <q-item-section>
+                            <q-item-section style="color: white;">
                                 {{ item.label }}
                             </q-item-section>
                         </q-item>
@@ -26,7 +26,7 @@
                     </q-list>
                 </q-scroll-area>
 
-                <h3 class="absolute-top" style="margin-left: 10px;">原來是打狗</h3>
+                <h3 class="absolute-top" style="margin-left: 10px; color: white;">原來是打狗</h3>
 
             </q-drawer>
         </div>
