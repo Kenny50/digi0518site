@@ -14,7 +14,7 @@
                             </q-item-section>
                         </q-item>
 
-                        <q-item clickable v-ripple class="absolute-bottom text-accent" :to="`/dashboard`">
+                        <!-- <q-item clickable v-ripple class="absolute-bottom text-accent" :to="`/dashboard`">
                             <q-item-section avatar>
                                 <q-icon name="info" />
                             </q-item-section>
@@ -22,7 +22,7 @@
                             <q-item-section>
                                 Dashboard
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
                     </q-list>
                 </q-scroll-area>
 
