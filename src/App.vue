@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh Lpr lff" container style="height: 100vh">
+    <q-layout view="hHh Lpr lff" container class="background-image" style="height: 100vh">
         <div class=" devsite-sidebar">
             <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered class="bg-primary">
                 <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
@@ -51,6 +51,16 @@
     </q-layout>
 
 </template>
+<style>
+body {
+    background-image: url('http://57.180.174.82:9000/static/bg.png');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+</style>
 
 <script>
 import { ref } from 'vue';
@@ -66,9 +76,9 @@ export default {
             isChatVisible: ref(false),
             menuItems: [
                 { route: "/", label: "Home", icon: "home", active: false },//introduce
-                { route: "/attractions", label: "Attractions", icon: "map", active: true },
-                { route: "/itineraries", label: "Itineraries", icon: "map", active: true },
-                { route: "/lang", label: "解謎", icon: "map", active: true },
+                { route: "/attractions", label: "景點推薦", icon: "map", active: true },
+                { route: "/itineraries", label: "故事行程", icon: "map", active: true },
+                { route: "/lang", label: "解謎行程", icon: "map", active: true },
                 // { route: "/form", label: "Form", icon: "info", active: true },
                 // { route: "/dashboard", label: "Dashboard", icon: "info", active: true },
             ]
