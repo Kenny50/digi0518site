@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh Lpr lff" container class="background-image" style="height: 100vh">
         <div class=" devsite-sidebar">
-            <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered class="bg-primary">
+            <q-drawer v-model="drawer" show-if-above :width="280" :breakpoint="500" bordered class="bg-secondary">
                 <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
                     <q-list padding>
                         <q-item v-for="item in menuItems" :key="item.route" :clickable="item.active" v-ripple
