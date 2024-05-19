@@ -6,7 +6,7 @@
             <q-scroll-area style="height: 90%; max-width: 100%;">
 
                 <q-chat-message v-for="(message, index) in chatMessage" :key="index" :text="message.text"
-                    :sent="message.isSelf" />
+                    :sent="message.isSelf" style="white-space: pre-line;" />
                 <q-chat-message v-if="isWaitingResponse">
                     <q-spinner-dots size="2rem" />
                 </q-chat-message>

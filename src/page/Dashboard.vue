@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="padding:5px">旗山區回饋</h2>
+        <h2 class="padding:5px">原來是打狗回饋</h2>
     </div>
     <div class="charts-container">
         <AverageRateBarChart />
@@ -8,12 +8,12 @@
     </div>
     <div class="btns-container">
         <q-btn outline rounded color="avatar" label="全總結" @click="fetchSummary('all')" />
-        <q-btn outline rounded color="avatar" label="交通低分原因總結" @click="fetchSummary('traffic')" />
+        <!-- <q-btn outline rounded color="avatar" label="交通低分原因總結" @click="fetchSummary('traffic')" /> -->
 
         <q-dialog v-model="isDialogOpen">
             <q-card style="width: 700px; max-width: 80vw;">
 
-                <q-card-section class="q-pt-none">
+                <q-card-section class="q-pt-none" style="white-space: pre-line;">
                     {{ dialogContent }}
                 </q-card-section>
 

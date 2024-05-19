@@ -26,7 +26,7 @@
                     </q-list>
                 </q-scroll-area>
 
-                <h3 class="absolute-top" style="margin-left: 10px;">城市智人</h3>
+                <h3 class="absolute-top" style="margin-left: 10px;">原來是打狗</h3>
 
             </q-drawer>
         </div>
